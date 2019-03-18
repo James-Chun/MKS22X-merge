@@ -30,11 +30,24 @@ public class Merge{
     }
 
 
-    private static insert(int data, int start, int end, int value){
-      int temp = data[start];
-      for (int i=start+1;i<end+1;i++){
+    private static void insert(int[ ]data, int start, int end, int value){
 
+      for (int i=start;i<end+1;i++){
+        int temp = data[i];
+        data[i]=value;
+        value=temp;
       }
+    }
+
+    public static String visual(int[] data){
+      String visual = "[";
+      for (int i=0;i<data.length;i++){
+        visual += data[i];
+        if (i<data.length-1){
+           visual += ", ";
+        }
+      }
+      return visual +"]";
     }
 
     public static void main(String[] args){
@@ -50,7 +63,9 @@ public class Merge{
         System.out.println("High:"+high);
       }
       */
-      System.out.println(3/2);
+      insert(data,0,4,4);
+
+      System.out.println(visual(data));
     }
 
 }
