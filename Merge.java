@@ -8,21 +8,20 @@ public class Merge{
         if (lo>=hi){
           return;
         }
-        mergeHelper(data, lo, lo + ( (hi-lo)/2 )-1 );//mergesort left side
-        mergeHelper(data, lo + ( (hi-lo)/2 ) , hi);//mergesort right side
+        mergeHelper(data, lo, lo + ( (hi-lo)/2 ) );//mergesort left side
+        mergeHelper(data, lo + ( (hi-lo)/2 )+1 , hi);//mergesort right side
         int index = 0;
         while ( !sorted(data,lo,hi) ){
-          int temp = data[ ( (hi-lo)/2) + index ];
-          for (int i=lo; i<(hi-lo)/2;i++){
-            if (temp<data[i]){
-              insert(data,i, (hi-lo)/2+index , temp);
+            int temp = data[lo + ( (hi-lo)/2 )+1+index];
+            for (int i=0;i<lo + ( (hi-lo)/2 )+1+index;i++){
+              if (temp<data[i]){
+                insert(data,i,lo + ( (hi-lo)/2 )+1+index,temp);
+              }
             }
-          }
-          index++;
         }
     }
 
-    private static boolean sorted(int[] data, int start, int end){
+    private static boolean sorted(int[] data, int start, int end){//works
       for (int i=start;i<end;i++){
         if (data[i]>data[i+1])return false;
       }
@@ -30,7 +29,7 @@ public class Merge{
     }
 
 
-    private static void insert(int[ ]data, int start, int end, int value){
+    private static void insert(int[ ]data, int start, int end, int value){//works
 
       for (int i=start;i<end+1;i++){
         int temp = data[i];
@@ -39,7 +38,7 @@ public class Merge{
       }
     }
 
-    public static String visual(int[] data){
+    public static String visual(int[] data){ //works
       String visual = "[";
       for (int i=0;i<data.length;i++){
         visual += data[i];
@@ -51,7 +50,7 @@ public class Merge{
     }
 
     public static void main(String[] args){
-      int[] data = {0,1,2,3,4,5,6,7};
+      int[] data = {4,1};
       int high = data.length;
       int low = 0;
 
@@ -63,10 +62,12 @@ public class Merge{
         System.out.println("High:"+high);
       }
       */
-      //insert(data,0,4,4);
+      //insert(data,0,4,3);
 
       //System.out.println(visual(data));
-      System.out.println(sorted(data,0,data.length-1));
+      mergesort(data);
+      System.out.println(visual(data));
+
     }
 
 }
