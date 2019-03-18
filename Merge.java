@@ -23,7 +23,7 @@ public class Merge{
     }
 
     private static boolean sorted(int[] data, int start, int end){
-      for (int i=start;i<end+1;i++){
+      for (int i=start;i<end;i++){
         if (data[i]>data[i+1])return false;
       }
       return true;
@@ -63,9 +63,10 @@ public class Merge{
         System.out.println("High:"+high);
       }
       */
-      insert(data,0,4,4);
+      //insert(data,0,4,4);
 
-      System.out.println(visual(data));
+      //System.out.println(visual(data));
+      System.out.println(sorted(data,0,data.length-1));
     }
 
 }
