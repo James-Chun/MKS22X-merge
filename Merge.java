@@ -8,17 +8,20 @@ public class Merge{
         if (lo>=hi){
           return;
         }
-        mergeHelper(data, lo, lo + ( (hi-lo)/2 ) );//mergesort left side
-        mergeHelper(data, lo + ( (hi-lo)/2 )+1 , hi);//mergesort right side
-        int index = 0;
-        while ( !sorted(data,lo,hi) ){
-            int temp = data[lo + ( (hi-lo)/2 )+1+index];
-            for (int i=0;i<lo + ( (hi-lo)/2 )+1+index;i++){
-              if (temp<data[i]){
-                insert(data,i,lo + ( (hi-lo)/2 )+1+index,temp);
-              }
-            }
+        mergeHelper(data, lo, (hi+lo)/2 );//mergesort left side
+        mergeHelper(data, (hi+lo)/2+1 , hi);//mergesort right side
+        merge(data,lo,hi);
+    }
+
+    private static void merge(int[] data, int lo, int hi){
+      for (int i=(hi+lo)/2+1;i<hi+1 && !sorted(data,lo,hi);i++ ){
+        int temp = data[i];
+        for (int i2=0;i2<(hi+lo)/2+1;i2++){
+          if (temp<data[i2]){
+            insert(data,i2,i,temp);
+          }
         }
+      }
     }
 
     private static boolean sorted(int[] data, int start, int end){//works
@@ -50,7 +53,7 @@ public class Merge{
     }
 
     public static void main(String[] args){
-      int[] data = {4,1};
+      int[] data = {2,0,4,1};
       int high = data.length;
       int low = 0;
 
