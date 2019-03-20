@@ -17,7 +17,7 @@ public class Merge{
       for (int i=(hi+lo)/2+1;i<hi+1 && !sorted(data,lo,hi);i++ ){
         int temp = data[i];
         for (int i2=0;i2<(hi+lo)/2+1 && !sorted(data,lo,hi);i2++){
-          System.out.println(visual(data));
+          //System.out.println(visual(data));
           if (temp<data[i2]){
             insert(data,i2,i,temp);
           }
@@ -54,7 +54,7 @@ public class Merge{
     }
 
     public static void main(String[] args){
-      int[] data = {3,2,0,4,1,45};
+      int[] data = {3,2,2,0,4,1,45,5,123,2};
       int high = data.length;
       int low = 0;
 
