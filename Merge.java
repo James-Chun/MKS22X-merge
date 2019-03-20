@@ -15,11 +15,13 @@ public class Merge{
 
     private static void merge(int[] data, int lo, int hi){
       for (int i=(hi+lo)/2+1;i<hi+1 && !sorted(data,lo,hi);i++ ){
+        boolean justinserted = false;
         int temp = data[i];
-        for (int i2=0;i2<(hi+lo)/2+1 && !sorted(data,lo,hi);i2++){
+        for (int i2=lo; i2<((hi+lo)/2)+1 && !sorted(data,lo,hi) && !justinserted;i2++){
           //System.out.println(visual(data));
           if (temp<data[i2]){
             insert(data,i2,i,temp);
+            justinserted = true;
           }
         }
       }
@@ -36,9 +38,9 @@ public class Merge{
     private static void insert(int[ ]data, int start, int end, int value){//works
 
       for (int i=start;i<end+1;i++){
-        int temp = data[i];
+        int temp2 = data[i];
         data[i]=value;
-        value=temp;
+        value=temp2;
       }
     }
 
@@ -54,7 +56,7 @@ public class Merge{
     }
 
     public static void main(String[] args){
-      int[] data = {3,2,2,0,4,1,45,5,123,2};
+      int[] data = {25, 10, 1 , -2};
       int high = data.length;
       int low = 0;
 
