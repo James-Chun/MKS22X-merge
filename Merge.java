@@ -17,7 +17,7 @@ public class Merge{
       for (int i=(hi+lo)/2+1;i<hi+1 && !sorted(data,lo,hi);i++ ){
         boolean justinserted = false;
         int temp = data[i];
-        for (int i2=lo; i2<((hi+lo)/2)+1 && !sorted(data,lo,hi) && !justinserted;i2++){
+        for (int i2=lo; i2<((hi+lo)/2)+1+i && !sorted(data,lo,hi) && !justinserted;i2++){
           //System.out.println(visual(data));
           if (temp<data[i2]){
             insert(data,i2,i,temp);
