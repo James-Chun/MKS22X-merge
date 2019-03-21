@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Merge{
     /*sort the array from least to greatest value. This is a wrapper function*/
     public static void mergesort(int[]data){
@@ -13,6 +15,70 @@ public class Merge{
         merge(data,lo,hi);
     }
 
+
+    private static void merge(int[] data, int lo, int hi) {
+      int leftArraySize = (hi-lo)/2 + 1;
+      int rightArraySize = hi - (hi+lo)/2;
+
+      int[] leftArray = new int[leftArraySize];
+      int[] rightArray = new int[rightArraySize];
+
+
+      for (int i = 0; i < rightArraySize; i++) {
+        rightArray[i] = data[(hi+lo)/2+i+1];
+      }
+      for (int i = 0; i < leftArraySize; i++) {
+        leftArray[i] = data[lo + i];
+      }
+
+
+      int indexL = 0;
+      int indexR = 0;
+      int index = lo;
+      /*
+      while (indexL+indexR < rightArraySize + leftArraySize) {
+          if (indexL < leftArraySize && leftArray[indexL] <= rightArray[indexR]) {
+            data[index] = leftArray[indexL];
+            indexL++;
+          }
+          else if (indexR < rightArraySize && rightArray[indexR] > leftArray[indexL]) {
+            data[index] = rightArray[indexR];
+            indexR++;
+          }
+          else if (indexL < leftArraySize){
+            data[index] = leftArray[indexL];
+            indexL++;
+          }
+          else if (indexR < rightArraySize){
+            data[index] = rightArray[indexR];
+            indexR++;
+          }
+          index++;
+      }*/
+      while (indexR < rightArraySize && indexL < leftArraySize) {
+          if (leftArray[indexL] <= rightArray[indexR]) {
+            data[index] = leftArray[indexL];
+            indexL++;
+          } else {
+            data[index] = rightArray[indexR];
+            indexR++;
+          }
+          index++;
+      }
+      while (indexL < leftArraySize) {
+        data[index] = leftArray[indexL];
+        indexL++;
+        index++;
+      }
+
+      while (indexR < rightArraySize) {
+        data[index] = rightArray[indexR];
+        indexR++;
+        index++;
+      }
+    }
+
+/*
     private static void merge(int[] data, int lo, int hi){
       for (int i=(hi+lo)/2+1;i<hi+1 && !sorted(data,lo,hi);i++ ){
         boolean justinserted = false;
@@ -42,7 +108,7 @@ public class Merge{
         data[i]=value;
         value=temp2;
       }
-    }
+    }*/
 
     public static String visual(int[] data){ //works
       String visual = "[";
@@ -55,7 +121,7 @@ public class Merge{
       return visual +"]";
     }
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
       int[] data = {25, 10, 1 , -2};
       int high = data.length;
       int low = 0;
@@ -67,13 +133,50 @@ public class Merge{
         System.out.println("Low:"+low);
         System.out.println("High:"+high);
       }
-      */
+
       //insert(data,0,4,3);
 
       //System.out.println(visual(data));
       mergesort(data);
       System.out.println(visual(data));
 
+    }*/
+    public static void main(String[]args){
+    System.out.println("Size\t\tMax Value\tMerge/builtin ratio ");
+    int[]MAX_LIST = {1000000000,500,10};
+    for(int MAX : MAX_LIST){
+      for(int size = 31250; size < 2000001; size*=2){
+        long qtime=0;
+        long btime=0;
+        //average of 5 sorts.
+        for(int trial = 0 ; trial <=5; trial++){
+          int []data1 = new int[size];
+          int []data2 = new int[size];
+          for(int i = 0; i < data1.length; i++){
+            data1[i] = (int)(Math.random()*MAX);
+            data2[i] = data1[i];
+          }
+          long t1,t2;
+          t1 = System.currentTimeMillis();
+          Merge.mergesort(data2);
+          t2 = System.currentTimeMillis();
+          qtime += t2 - t1;
+          t1 = System.currentTimeMillis();
+          Arrays.sort(data1);
+          t2 = System.currentTimeMillis();
+          btime+= t2 - t1;
+          if(!Arrays.equals(data1,data2)){
+            System.out.println("FAIL TO SORT!");
+            System.exit(0);
+          }
+        }
+        System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+      }
+      System.out.println();
     }
+    // int[] data = new int[] {4, 23, 234, 345, 1, 3 , 54, 234, 134, 3254, 13, 999, 28};
+    // mergesort(data);
+    // System.out.println(Arrays.toString(data));
+  }
 
 }
